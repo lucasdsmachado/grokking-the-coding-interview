@@ -1,7 +1,7 @@
 const search_triplets = function (arr) {
   arr.sort((a, b) => a - b);
   const triplets = [];
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < arr.length - 2; i++) {
     if (i > 0 && arr[i] === arr[i - 1]) { // SKIP THE SAME ELEMENT TO AVOID DUPLICATE TRIPLETS
       continue;
     }
