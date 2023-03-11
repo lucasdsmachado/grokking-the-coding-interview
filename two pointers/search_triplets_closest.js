@@ -26,4 +26,4 @@ const search_triplets = function (nums, targetSum) {
 
 console.log(search_triplets([-2, 0, 1, 2], 2));
 console.log(search_triplets([-3, -1, 1, 2], 1));
-console.log(search_triplets([1, 0, 1, 1], 3));
+console.log(search_triplets([1, 0, 1, 1], 100));
