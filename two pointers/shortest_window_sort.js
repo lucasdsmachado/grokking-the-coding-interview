@@ -1,10 +1,8 @@
 const shortest_window_sort = function (nums) {
   let low = 0,
-    high = nums.length - 1,
-    subarrayMax = Number.MIN_VALUE,
-    subarrayMin = Number.MAX_VALUE;
+    high = nums.length - 1;
   // FIND THE FIRST NUMBER OUT OF SORTING ORDER FROM THE BEGINNIG
-  while (low < nums.length && nums[low] <= nums[low + 1]) {
+  while (low < nums.length - 1 && nums[low] <= nums[low + 1]) {
     low++;
   }
 
@@ -17,7 +15,9 @@ const shortest_window_sort = function (nums) {
   }
 
   // FIND THE MAXIMUM AND MINIMUM OF THE SUBARRAY
-  for (let i = low; i <= high; i++) {
+  let subarrayMax = -Infinity,
+    subarrayMin = Infinity;
+  for (let i = low; i < high + 1; i++) {
     subarrayMax = Math.max(subarrayMax, nums[i]);
     subarrayMin = Math.min(subarrayMin, nums[i]);
   }
