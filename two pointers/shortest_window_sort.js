@@ -37,7 +37,7 @@ const shortest_window_sort = function (nums) {
 
 console.log(shortest_window_sort([3, 2, 1])); // 3
 console.log(shortest_window_sort([1, 2, 5, 3, 7, 10, 9, 12])); // 5
-console.log(shortest_window_sort([1, 3, 2, 0, -1, 7, 10]))// 4
+console.log(shortest_window_sort([1, 3, 2, 0, -1, 7, 10]))// 5
 console.log(shortest_window_sort([1, 2, 3])); // 0
 console.log(shortest_window_sort([1, 2, 3, 4])); // 0
 console.log(shortest_window_sort([1])); // 0
