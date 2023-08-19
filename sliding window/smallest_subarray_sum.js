@@ -34,7 +34,7 @@ const smallest_subarray_sum = function (s, arr) {
     }
   }
   
-  return minLength === Number.MAX_SAFE_INTEGER ? 0 : minLength;;
+  return minLength === Number.MAX_SAFE_INTEGER ? 0 : minLength;
 }
 
 console.log(smallest_subarray_sum(7, [2, 1, 5, 2, 3, 2])); // 2
