@@ -12,16 +12,17 @@
  */
 
 // Time complexity: O(n*k)
-const max_sub_array_of_size_k_b = function(nums, k) {
-  let windowSum = 0, maxValue = -Number.MAX_VALUE, windowStart = 0;
-  for (let i = 0; i < nums.length; i++) {
-    windowSum += nums[i];
-    if (i + 1 >= k) {
-      maxValue = Math.max(maxValue, windowSum / k);
-      windowSum -= nums[windowStart++]
+
+const max_sub_array_of_size_k_b = function (k, arr) {
+  let max = 0;
+  for (let i = 0; i < arr.length - k + 1; i++) {
+    let sum = 0.0;
+    for (let j = i; j < i + k; j++) {
+      sum += arr[j];
     }
+    max = Math.max(sum, max);
   }
-  return maxValue;
+  return max
 };
 
 // Time complexity: O(n)
@@ -34,7 +35,6 @@ const max_sub_array_of_size_k = function (k, arr) {
       sum -= arr[windowStart++];
     }
   }
-
   return max
 };
 
