@@ -1,4 +1,4 @@
-function search_triplets(nums, target) {
+const search_triplets = function(nums, target) {
   nums.sort((a, b) => a - b);
   let triplets = [];
   for (let i = 0; i < nums.length - 2; i++) {
@@ -7,11 +7,10 @@ function search_triplets(nums, target) {
   return triplets;
 }
 
-function search_pair(nums, target, first, triplets) {
+const search_pair = function(nums, target, first, triplets) {
   let left = first + 1, right = nums.length - 1;
   while (left < right) {
-    let currSum = nums[left] + nums[right];
-    if (currSum < target) {
+    if (nums[left] + nums[right] < target) {
       for (let i = right; i > left; i--) {
         triplets.push([nums[first], nums[left], nums[i]]);
       }
