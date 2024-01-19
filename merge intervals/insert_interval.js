@@ -1,31 +1,23 @@
 const insert = function (intervals, newInterval) {
   let mergedIntervals = [];
   let start = newInterval[0],
-    end = newInterval[1],
-    flag = false;
-  let interval;
-  for (let i = 0; i < intervals.length; i++) {
-    interval = intervals[i];
-    if (start <= interval[1] && end >= interval[0]) { // overlap
+    end = newInterval[1];
+
+  for (let interval of intervals) {
+    if (start <= interval[1] && end >= interval[0]) {
       start = Math.min(start, interval[0]);
       end = Math.max(end, interval[1]);
-      flag = true;
-    } else if (start <= interval[1] && end <= interval[0]) {
+    } else if (end < interval[0]) {
       mergedIntervals.push([start, end]);
       start = interval[0];
       end = interval[1];
-      flag = false;
-    } else if (!flag) { // dont overlap and never overlapped or already inserted
+    } else {
       mergedIntervals.push(interval);
-    } else { // not overlap, but overlapped once
-      mergedIntervals.push([start, end]);
-      start = interval[0];
-      end = interval[1];
-      flag = false;
     }
   }
+
   mergedIntervals.push([start, end]);
-  return mergedIntervals
+  return mergedIntervals;
 }
 
 console.log(insert([[1, 3], [6, 9]], [2, 5])); // [[1,5],[6,9]]
