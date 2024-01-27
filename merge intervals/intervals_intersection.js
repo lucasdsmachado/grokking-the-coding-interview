@@ -4,11 +4,7 @@ const merge = function (firstList, secondList) {
     j = 0;
   
   while (i < firstList.length && j < secondList.length) {
-    
-    let a_overlaps_b = firstList[i][0] >= secondList[j][0] && firstList[i][0] <= secondList[j][1];
-    let b_overlaps_a = secondList[j][0] >= firstList[i][0] && secondList[j][0] <= firstList[i][1]; 
-    
-    if (a_overlaps_b || b_overlaps_a) {
+    if ((firstList[i][1] >= secondList[j][0] && firstList[i][0] <= secondList[j][1])) {
       merged.push([
         Math.max(firstList[i][0], secondList[j][0]),
         Math.min(firstList[i][1], secondList[j][1])
