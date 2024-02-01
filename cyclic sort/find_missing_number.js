@@ -1,14 +1,21 @@
 const find_missing_number = function (nums) {
-  let i = 0;
-  while (i < nums.length) {
-    let currentIdx = nums[i] - 1;
-    if (nums[i] !== 0 && nums[i] !== nums[currentIdx]) {
-      [nums[i], nums[currentIdx]] = [nums[currentIdx], nums[i]];
+  let i = 0,
+    n = nums.length;
+  while (i < n) {
+    let j = nums[i];
+    if (nums[i] < n && nums[i] !== nums[j]) {
+      [nums[i], nums[j]] = [nums[j], nums[i]];
     } else {
       i++;
     }
   }
-  return nums.indexOf(0) + 1;
+  
+  for (i = 0; i < n; i++) {
+    if (nums[i] !== i)
+      return i;
+  }
+  
+  return n;
 }
 
 console.log(find_missing_number([3, 0, 1]));
