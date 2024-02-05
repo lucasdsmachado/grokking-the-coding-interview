@@ -18,6 +18,6 @@ const find_missing_number = function (nums) {
   return n;
 }
 
-console.log(find_missing_number([3, 0, 1]));
-console.log(find_missing_number([0, 1]));
-console.log(find_missing_number([9, 6, 4, 2, 3, 5, 7, 0, 1]));
+console.log(find_missing_number([3, 0, 1])); // 2
+console.log(find_missing_number([0, 1])); // 2
+console.log(find_missing_number([9, 6, 4, 2, 3, 5, 7, 0, 1])); // 8
