@@ -1,29 +1,26 @@
 import Heap from 'collections/heap.js';
 
-class Interval {
-  constructor(start, end) {
-    this.start = start;
-    this.end = end;
-  }
-}
-
 const find_employee_free_time = function (schedule) {
   let res = [];
-  const pq = new Heap([], null, (a, b) => b.start - a.start);
-  for (let employee of schedule) {
-    for (let period of employee) {
-      pq.push(new Interval(...period));
-    }
-  }
+  const pq = new Heap([], null, (a, b) => a[0] < b[0]);
+   
+  schedule.forEach((employee) => {
+    employee.forEach((period) => {
+      pq.add(period);
+    })
+  })
+  
   let curr = pq.pop();
+  
   while (pq.length > 0) {
-    if (curr.end >= pq.peek().start) {
-      curr.end = Math.max(curr.end, pq.pop().end);
+    if (curr[1] >= pq.peek()[0]) {
+      curr[1] = Math.max(curr[1], pq.pop()[1]);
     } else {
-      res.push(new Interval(curr.end, pq.peek().start));
+      res.push([curr[1], pq.peek()[0]]);
       curr = pq.pop();
     }
   }
+  
   return res;
 }
 
