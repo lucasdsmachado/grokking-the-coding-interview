@@ -16,34 +16,38 @@ class Node {
 };
 
 const reverse_every_k_elements = function (head, k) {
+  if (k === 1 || head === null) {
+    return head;
+  }
 
   let current = head,
-    prev = null,
-    next = null;
-
-  let last_node_of_first_part = null;
-  let last_node_of_sub_list = current;
+    previous = null;
 
   while (current !== null) {
-    let i = 0;
+    const last_node_of_previous_part = previous,
+      // after reversing the LinkedList 'current' will become the last node of the sub-list
+      last_node_of_sub_list = current;
 
-    while (current !== null && i < k) {
+    let next = null, // will be used to temporarily store the next node
+      i = 0;
+
+    while (current !== null && i < k) { // reverse k nodes
       next = current.next;
-      current.next = prev;
-      prev = current;
+      current.next = previous;
+      previous = current;
       current = next;
       i++;
     }
 
-    if (last_node_of_first_part !== null) {
-      last_node_of_first_part.next = prev;
+    // connect with the previous part
+    if (last_node_of_previous_part !== null) {
+      last_node_of_previous_part.next = previous;
     } else {
-      head = prev;
+      head = previous;
     }
-
+    // connect with the next part
     last_node_of_sub_list.next = current;
-    last_node_of_first_part = last_node_of_sub_list;
-    last_node_of_sub_list = current;
+    previous = last_node_of_sub_list;
   }
 
   return head;
