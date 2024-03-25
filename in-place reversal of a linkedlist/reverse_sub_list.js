@@ -21,32 +21,39 @@ const reverse_between = function (head, p, q) {
   }
 
   let current = head,
-    prev = null,
-    next = null;
-
-  for (let i = 0; i < p - 1; i++) {
-    prev = current;
+    previous = null,
+    i = 0;
+  // after skipping 'p-1' nodes, current will point to p'th' node 
+  while (current !== null && i < p - 1) {
+    previous = current;
     current = current.next;
+    i++;
   }
-
-  const last_node_of_first_part = prev,
+  // we are interested in three parts of the LinkedList, the part before index 'p',
+  // the part between 'p' and 'q', and the part after index 'q'
+  const last_node_of_first_part = previous,
+    // after reversing the linkedlist 'current' will become the last node  
     last_node_of_sub_list = current;
-  let i = 0;
+  let next = null; // will be used to temporarily store the next node
+
+  i = 0;
 
   while (current !== null && i < q - p + 1) {
     next = current.next;
-    current.next = prev;
-    prev = current;
+    current.next = previous;
+    previous = current;
     current = next;
-    i++
+    i++;
   }
-
+  // connect with the first part
   if (last_node_of_first_part !== null) {
-    last_node_of_first_part.next = prev;
+    // previous is now the first node of the sub-list
+    last_node_of_first_part.next = previous;
+    // this means p === 1 i.e., we are changing the first node (head) of the LinkedList
   } else {
-    head = prev;
+    head = previous;
   }
-
+  // connect with the last part;
   last_node_of_sub_list.next = current;
   return head;
 }
