@@ -16,30 +16,19 @@ class Node {
 };
 
 const reverse_alternate_k_elements = function (head, k) {
-  if (k === 1 || head === null) {
+  if (k <= 1 || head === null) {
     return head;
   }
 
   let current = head,
-    previous = null,
-    flag = true;
-
+    previous = null;
+  
   while (current !== null) {
     const last_node_of_first_part = previous,
       last_node_of_sub_list = current;
 
-    let i = 0,
-      next = null;
-
-    if (!flag) {
-      while (current !== null && i < k) {
-        previous = current
-        current = current.next;
-        i++;
-      }
-      flag = !flag;
-      continue;
-    }
+    let next = null,
+      i = 0;
 
     while (current !== null && i < k) {
       next = current.next;
@@ -54,10 +43,16 @@ const reverse_alternate_k_elements = function (head, k) {
     } else {
       head = previous;
     }
-
+    
     last_node_of_sub_list.next = current;
-    previous = last_node_of_sub_list;
-    flag = !flag;
+    
+    i = 0;
+    
+    while (current !== null && i < k) {
+      previous = current
+      current = current.next;
+      i++;
+    }
   }
 
   return head;
