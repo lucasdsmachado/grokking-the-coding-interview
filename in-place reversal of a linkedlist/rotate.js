@@ -16,35 +16,33 @@ class Node {
 };
 
 const rotate = function (head, k) {
-  if (head === null) return head;
+  if (!head || !head.next || k == 0)
+    return head;
 
-  let slow = head, fast = head;
-  let len = 1;
+  let size = 0,
+    right = head;
 
-  while (fast.next !== null) {
-    fast = fast.next;
-    len++;
+  while (right) {
+    size++;
+    right = right.next;
   }
 
-  k = k > len ? k % len : k;
-  fast = head;
+  k = k % size;
+  let left = head;
+  right = head;
 
-  if (k === 0 || k === len) return head;
-
-  for (let i = 0; i < k; i++) {
-    fast = fast.next;
+  while (k--) {
+    right = right.next;
   }
 
-  while (fast.next !== null) {
-    slow = slow.next;
-    fast = fast.next;
+  while (right.next) {
+    left = left.next;
+    right = right.next;
   }
 
-
-  fast.next = head;
-  head = slow.next;
-  slow.next = null;
-
+  right.next = head;
+  head = left.next;
+  left.next = null;
   return head;
 };
 
@@ -55,4 +53,4 @@ head.next.next.next = new Node(4);
 head.next.next.next.next = new Node(5);
 
 console.log(`Nodes of original LinkedList are: ${head.get_list()}`);
-console.log(`Nodes of rotate LinkedList are: ${rotate(head, 2).get_list()}`);
+console.log(`Nodes of rotate LinkedList are: ${rotate(head, 0).get_list()}`);
