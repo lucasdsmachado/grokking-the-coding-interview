@@ -16,35 +16,24 @@ class Node {
 };
 
 const swap_pairs = function (head) {
-  let current = head,
-    previous = null;
-
-  while (current !== null) {
-    const last_node_of_first_part = previous,
-      last_node_of_sub_list = current;
-
-    let next = null,
-      i = 0;
-
-    while (current !== null && i < 2) {
-      next = current.next;
-      current.next = previous;
-      previous = current;
-      current = next;
-      i++;
-    }
-
-    if (last_node_of_first_part !== null) {
-      last_node_of_first_part.next = previous;
-    } else {
-      head = previous;
-    }
-
-    last_node_of_sub_list.next = current;
-    previous = last_node_of_sub_list;
+  if (head === null || head.next === null) {
+    return head;
   }
 
-  return head;
+  let dummy = new Node(0, head.next),
+    previous = dummy,
+    current = head;
+
+  while (current !== null && current.next !== null) {
+    previous.next = current.next;
+    current.next = previous.next.next;
+    previous.next.next = current;
+    
+    previous = current;
+    current = current.next;
+  }
+
+  return dummy.next;
 };
 
 const head = new Node(1);
