@@ -16,11 +16,7 @@ class Node {
 };
 
 const swap_pairs = function (head) {
-  if (head === null || head.next === null) {
-    return head;
-  }
-
-  let dummy = new Node(0, head.next),
+  let dummy = new Node(0, head),
     previous = dummy,
     current = head;
 
@@ -28,7 +24,7 @@ const swap_pairs = function (head) {
     previous.next = current.next;
     current.next = previous.next.next;
     previous.next.next = current;
-    
+
     previous = current;
     current = current.next;
   }
