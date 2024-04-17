@@ -6,14 +6,14 @@ class TreeNode {
   }
 }
 
-const traverse = function (root) {
+const zigzag_level_order = function (root) {
   if (!root) {
     return [];
   }
 
   const queue = [],
     result = [];
-  let flag = true;
+  let leftToRight = true;
 
   queue.push(root);
 
@@ -24,10 +24,11 @@ const traverse = function (root) {
     for (let i = 0; i < levelSize; i++) {
       let currentNode = queue.shift();
       
-      if (flag)
+      if (leftToRight) {
         currentLevel.push(currentNode.val);
-      else
+      } else {
         currentLevel.unshift(currentNode.val);
+      }
 
       if (currentNode.left) {
         queue.push(currentNode.left);
@@ -38,7 +39,7 @@ const traverse = function (root) {
       }
     }
     
-    flag = !flag;
+    leftToRight = !leftToRight;
     result.push(currentLevel);
   }
 
@@ -50,4 +51,4 @@ root.left = new TreeNode(2);
 root.right = new TreeNode(3);
 root.left.left = new TreeNode(4);
 root.right.right = new TreeNode(5);
-console.log(traverse(root));
+console.log(`Zigzag traversal: ${zigzag_level_order(root)}`);
