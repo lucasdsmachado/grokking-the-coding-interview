@@ -16,55 +16,38 @@ class Node {
 };
 
 const reverse_even_length_groups = function (head) {
-  if (head === null || head.next === null) {
-    return head;
-  }
+  let prev = head,
+    groupLen = 2;
 
-  let current = head,
-    previous = null,
-    size = 1;
+  while (prev.next !== null) {
+    let node = prev,
+      numNodes = 0;
 
-  while (current !== null) {
-    let tracker = current,
-      before = null,
-      i = 0;
-
-    while (tracker !== null && i < size) {
-      before = tracker
-      tracker = tracker.next;
-      i++;
+    while (node.next !== null && numNodes < groupLen) {
+      node = node.next;
+      numNodes++;
     }
 
-    if (i % 2 === 1) {
-      previous = before;
-      current = tracker;
-      size++;
-      continue;
-    }
-
-    let last_node_of_first_part = previous,
-      last_node_of_sub_list = current,
-      next = null;
-
-    i = 0;
-
-    while (current !== null && i < size) {
-      next = current.next;
-      current.next = previous;
-      previous = current;
-      current = next;
-      i++;
-    }
-
-    if (last_node_of_first_part !== null) {
-      last_node_of_first_part.next = previous;
+    if (numNodes % 2) {
+      prev = node;
     } else {
-      head = previous;
+      let reverse = node.next,
+        curr = prev.next,
+        currNext = null;
+      
+      for (let j = 0; j < numNodes; j++) {
+        currNext = curr.next;
+        curr.next = reverse;
+        reverse = curr;
+        curr = currNext;
+      }
+      
+      let prevNext = prev.next;
+      prev.next = node;
+      prev = prevNext;
     }
 
-    last_node_of_sub_list.next = current;
-    previous = last_node_of_sub_list;
-    size++;
+    groupLen++;
   }
 
   return head;
