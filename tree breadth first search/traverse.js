@@ -7,30 +7,36 @@ class TreeNode {
 }
 
 const traverse = function (root) {
-  let res = [], dq = [];
-
-  if (root) {
-    dq.push(root);
+  if (!root) {
+    return [];
   }
 
-  while (dq.length > 0) {
-    let visited = [], waiting = [];
-    while (dq.length > 0) {
-      let current = dq.shift();
-      visited.push(current.val);
-      if (current.left) {
-        waiting.push(current.left);
+  const queue = [],
+    result = [];
+    
+  queue.push(root);
+
+  while (queue.length > 0) {
+    const levelSize = queue.length;
+    let currentLevel = [];
+
+    for (let i = 0; i < levelSize; i++) {
+      let currentNode = queue.shift();
+      currentLevel.push(currentNode.val);
+
+      if (currentNode.left) {
+        queue.push(currentNode.left);
       }
-      if (current.right) {
-        waiting.push(current.right);
+
+      if (currentNode.right) {
+        queue.push(currentNode.right);
       }
     }
 
-    res.push(visited);
-    dq = waiting;
+    result.push(currentLevel);
   }
 
-  return res;
+  return result;
 }
 
 var root = new TreeNode(12);
