@@ -9,35 +9,30 @@ class TreeNode {
 const find_sucessor = function (root, key) {
   if (!root)
     return null;
-  
-  let result = [],
-    queue = [],
-    found = false;
-  
+
+  let queue = [];
+
   queue.push(root);
-  
+
   while (queue.length > 0) {
-    let levelSize = queue.length,
-      currentNode = queue.shift();
-    
+    let currentNode = queue.shift();
+
+    if (currentNode.left) {
+      queue.push(currentNode.left);
+    }
+
+    if (currentNode.right) {
+      queue.push(currentNode.right);
+    }
+
     if (currentNode.val === key) {
-      found = true;
+      break;
     }
-    
-    for (let i = 0; i < levelSize; i++) {     
-      if (currentNode.left) {
-        queue.push(currentNode.left);
-      } 
-      
-      if (currentNode.right) {
-        queue.push(currentNode.right);
-      }
-    }
-    
-    if (found)
-      return queue.shift().val;
   }
-  
+
+  if (queue.length > 0)
+    return queue.shift();
+
   return null;
 }
 
@@ -49,7 +44,7 @@ root.left.right = new TreeNode(10);
 root.right.right = new TreeNode(5);
 let result = find_sucessor(root, 12);
 if (result)
-  console.log(result);
+  console.log(result.val);
 result = find_sucessor(root, 9);
 if (result)
-  console.log(result);
+  console.log(result.val);
