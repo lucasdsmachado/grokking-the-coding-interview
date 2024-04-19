@@ -3,8 +3,9 @@ class TreeNode {
     this.val = val;
     this.left = null;
     this.right = null;
+    this.next = null;
   }
-  
+
   print_tree() {
     let result = `Traversal using 'next' pointer: `;
     let current = this;
@@ -20,26 +21,29 @@ const connect_all_siblings = function (root) {
   if (!root) {
     return null;
   }
-  
-  let queue = [];
+
+  let queue = [],
+    currentNode = null,
+    previousNode = null;
+
   queue.push(root);
-  
+
   while (queue.length > 0) {
-    let currentNode = queue.shift();
-    
+    currentNode = queue.shift();
+
+    if (previousNode !== null) {
+      previousNode.next = currentNode;
+    }
+
     if (currentNode.left) {
       queue.push(currentNode.left);
     }
-    
+
     if (currentNode.right) {
       queue.push(currentNode.right);
     }
-    
-    if (queue.length === 0) {
-      currentNode.next = null;
-    } else {
-      currentNode.next = queue[0];
-    }
+
+    previousNode = currentNode;
   }
   
   return root;
