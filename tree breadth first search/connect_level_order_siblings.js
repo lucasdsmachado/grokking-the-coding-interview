@@ -5,7 +5,7 @@ class TreeNode {
     this.right = null;
     this.next = null;
   }
-  
+
   print_level_order() {
     console.log("Level order traversal using 'next' pointer: ");
     let nextLevelRoot = this;
@@ -29,37 +29,34 @@ class TreeNode {
 };
 
 const connect_level_order_siblings = function (root) {
-  if (!root) {
-    return null;
+  if (root === null) {
+    return;
   }
-  
-  let queue = [],
-    previous = null,
-    currentNode = null;
+
+  const queue = [];
   queue.push(root);
-  
-  while (queue.length) {
-    let levelSize = queue.length;
+
+  while (queue.length > 0) {
+    let previousNode = null,
+      levelSize = queue.length;
+
     for (let i = 0; i < levelSize; i++) {
-      currentNode = queue.shift();
-      
-      if (previous) {
-        previous.next = currentNode;
+      let currentNode = queue.shift();
+
+      if (previousNode !== null) {
+        previousNode.next = currentNode;
       }
-      
-      if (currentNode.left) {
+
+      previousNode = currentNode;
+
+      if (currentNode.left !== null) {
         queue.push(currentNode.left);
       }
-      
-      if (currentNode.right) {
+
+      if (currentNode.right !== null) {
         queue.push(currentNode.right);
       }
-      
-      previous = currentNode;
     }
-    
-    currentNode.next = null;
-    previous = null;
   }
 }
 
